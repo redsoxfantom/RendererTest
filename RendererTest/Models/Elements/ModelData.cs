@@ -8,15 +8,15 @@ namespace RendererTest.Elements.Models
 {
     public struct Vertex
     {
-        double x;
-        double y;
-        double z;
-        double w;
+        public double x;
+        public double y;
+        public double z;
+        public double w;
     }
 
     public struct Edge
     {
-        Vertex v1;
-        Vertex v2;
+        public Vertex v1;
+        public Vertex v2;
     }
 }

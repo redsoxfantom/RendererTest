@@ -8,5 +8,36 @@ namespace RendererTest.Elements.Models
 {
     public class Model
     {
+        private List<Vertex> verticies;
+        private List<Edge> edges;
+
+        public Model()
+        {
+            verticies = new List<Vertex>();
+            edges = new List<Edge>();
+        }
+
+        public void AddVertex(double inX, double inY, double inZ, double inW = 1.0)
+        {
+            verticies.Add(new Vertex()
+            {
+                x = inX,
+                y = inY,
+                z = inZ,
+                w = inW
+            });
+        }
+
+        public void AddEdge(int vert1, int vert2)
+        {
+            Vertex v_1 = verticies[vert1];
+            Vertex v_2 = verticies[vert2];
+
+            edges.Add(new Edge()
+            {
+                v1 = v_1,
+                v2 = v_2
+            });
+        }
     }
 }
