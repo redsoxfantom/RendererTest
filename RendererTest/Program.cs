@@ -1,15 +1,10 @@
-﻿using log4net;
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
-using RendererTest.Models;
+using RendererTest.Elements.Models;
 using RendererTest.Models.Loader;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = false)]
 namespace RendererTest

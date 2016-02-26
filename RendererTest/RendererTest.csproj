@@ -55,7 +55,8 @@
     <Compile Include="Models\Loader\ModelLoader.cs" />
     <Compile Include="Models\Loader\IModelFileReader.cs" />
     <Compile Include="Models\Loader\NullModelFileReader.cs" />
-    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\Elements\Model.cs" />
+    <Compile Include="Models\Elements\ModelData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

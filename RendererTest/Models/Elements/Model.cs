@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RendererTest.Models
+namespace RendererTest.Elements.Models
 {
     public class Model
     {
