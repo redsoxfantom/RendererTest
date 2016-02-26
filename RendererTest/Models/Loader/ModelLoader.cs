@@ -42,15 +42,20 @@ namespace RendererTest.Models.Loader
             }
 
             FileStream file = File.OpenRead(pathToFile);
+            IModelFileReader fileReader = getModelReader(Path.GetExtension(pathToFile));
+            Model loadedModel = fileReader.LoadFromFile(file);
 
-
-            Model loadedModel = new Model();
             return loadedModel;
         }
 
         private IModelFileReader getModelReader(String fileExtension)
         {
-
+            switch(fileExtension)
+            {
+                default:
+                    logger.Error("Unrecognized file format " + fileExtension);
+                    return new NullModelFileReader();
+            }
         }
     }
 }
