@@ -10,6 +10,6 @@ namespace RendererTest.Models.Loader
 {
     public interface IModelFileReader
     {
-        Model LoadFromFile(FileStream file);
+        Model LoadFromFile(StreamReader file);
     }
 }

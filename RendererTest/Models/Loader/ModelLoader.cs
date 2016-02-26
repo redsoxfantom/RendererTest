@@ -45,7 +45,7 @@ namespace RendererTest.Models.Loader
             Model loadedModel = null;
             try
             {
-                FileStream file = File.OpenRead(pathToFile);
+                StreamReader file = File.OpenText(pathToFile);
                 IModelFileReader fileReader = getModelReader(Path.GetExtension(pathToFile));
                 loadedModel = fileReader.LoadFromFile(file);
                 loadedModel.Commit();

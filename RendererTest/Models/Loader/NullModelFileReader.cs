@@ -10,7 +10,7 @@ namespace RendererTest.Models.Loader
 {
     public class NullModelFileReader : IModelFileReader
     {
-        public Model LoadFromFile(FileStream file)
+        public Model LoadFromFile(StreamReader file)
         {
             return new Model();
         }

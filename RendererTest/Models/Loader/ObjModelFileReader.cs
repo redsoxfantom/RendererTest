@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using RendererTest.Elements.Models;
 using log4net;
 
@@ -13,9 +8,11 @@ namespace RendererTest.Models.Loader
     {
         private ILog logger = LogManager.GetLogger("ObjModelFileReader");
 
-        public Model LoadFromFile(FileStream file)
+        public Model LoadFromFile(StreamReader file)
         {
             Model loadedModel = new Model();
+
+            file.
 
             return loadedModel;
         }
