@@ -45,6 +45,7 @@ namespace RendererTest.Models.Loader
             FileStream file = File.OpenRead(pathToFile);
             IModelFileReader fileReader = getModelReader(Path.GetExtension(pathToFile));
             Model loadedModel = fileReader.LoadFromFile(file);
+            loadedModel.Commit();
 
             logger.Info("Model file loaded using reader " + fileReader.GetType().Name);
 
@@ -55,6 +56,8 @@ namespace RendererTest.Models.Loader
         {
             switch(fileExtension)
             {
+                case ".obj":
+                    return new ObjModelFileReader();
                 default:
                     logger.Error("Unrecognized file format " + fileExtension);
                     return new NullModelFileReader();
