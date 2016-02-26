@@ -1,4 +1,5 @@
 ﻿using log4net;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +50,15 @@ namespace RendererTest.Elements.Models
 
         public void Render()
         {
+            GL.Begin(PrimitiveType.Lines);
+            
+            foreach(Edge e in edges)
+            {
+                GL.Vertex3(e.v1.x, e.v1.y, e.v1.z);
+                GL.Vertex3(e.v2.x, e.v2.y, e.v2.z);
+            }
 
+            GL.End();
         }
     }
 }
