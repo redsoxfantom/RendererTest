@@ -43,7 +43,7 @@ namespace RendererTest.Models.Loader
                 int vert1 = int.Parse(subline);
                 int vert2 = int.Parse(nextSubLine);
 
-                loadedModel.AddEdge(vert1, vert2);
+                loadedModel.AddEdge(vert1-1, vert2-1);
             }
         }
 

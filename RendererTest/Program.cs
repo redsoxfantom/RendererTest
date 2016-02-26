@@ -24,7 +24,7 @@ namespace RendererTest
                     // setup settings, load textures, sounds
                     game.VSync = VSyncMode.On;
 
-                    model = loader.LoadModel("planet.obj");
+                    model = loader.LoadModel("cube.obj");
                 };
 
                 game.Resize += (sender, e) =>
