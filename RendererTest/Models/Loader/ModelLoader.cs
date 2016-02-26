@@ -45,6 +45,8 @@ namespace RendererTest.Models.Loader
             IModelFileReader fileReader = getModelReader(Path.GetExtension(pathToFile));
             Model loadedModel = fileReader.LoadFromFile(file);
 
+            logger.Info("Model file loaded using reader " + fileReader.GetType().Name);
+
             return loadedModel;
         }
 
