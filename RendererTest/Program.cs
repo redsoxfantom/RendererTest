@@ -2,6 +2,8 @@
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
+using RendererTest.Models;
+using RendererTest.Models.Loader;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,12 +19,17 @@ namespace RendererTest
         [STAThread]
         static void Main(string[] args)
         {
+            ModelLoader loader = new ModelLoader();
+            Model model;
+
             using (var game = new GameWindow())
             {
                 game.Load += (sender, e) =>
                 {
                     // setup settings, load textures, sounds
                     game.VSync = VSyncMode.On;
+
+                    model = loader.LoadModel("planet.obj");
                 };
 
                 game.Resize += (sender, e) =>
