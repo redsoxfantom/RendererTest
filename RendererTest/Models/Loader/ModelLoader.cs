@@ -48,6 +48,9 @@ namespace RendererTest.Models.Loader
             return loadedModel;
         }
 
-        private
+        private IModelFileReader getModelReader(String fileExtension)
+        {
+
+        }
     }
 }
