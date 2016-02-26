@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace RendererTest.Elements.Models
     {
         private List<Vertex> verticies;
         private List<Edge> edges;
+        private ILog logger = LogManager.GetLogger("Model");
 
         public Model()
         {
@@ -38,6 +40,16 @@ namespace RendererTest.Elements.Models
                 v1 = v_1,
                 v2 = v_2
             });
+        }
+
+        public void Commit()
+        {
+            logger.InfoFormat("Creating model with {0} vertices and {1} edges",verticies.Count,edges.Count);
+        }
+
+        public void Render()
+        {
+
         }
     }
 }
