@@ -42,13 +42,21 @@ namespace RendererTest.Models.Loader
                 return new Model();
             }
 
-            FileStream file = File.OpenRead(pathToFile);
-            IModelFileReader fileReader = getModelReader(Path.GetExtension(pathToFile));
-            Model loadedModel = fileReader.LoadFromFile(file);
-            loadedModel.Commit();
+            Model loadedModel = null;
+            try
+            {
+                FileStream file = File.OpenRead(pathToFile);
+                IModelFileReader fileReader = getModelReader(Path.GetExtension(pathToFile));
+                loadedModel = fileReader.LoadFromFile(file);
+                loadedModel.Commit();
 
-            logger.Info("Model file loaded using reader " + fileReader.GetType().Name);
-
+                logger.Info("Model file loaded using reader " + fileReader.GetType().Name);
+            }
+            catch(Exception ex)
+            {
+                logger.Error("Error occured loading model file", ex);
+                loadedModel = new Model();
+            }
             return loadedModel;
         }
 
