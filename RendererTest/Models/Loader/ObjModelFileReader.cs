@@ -15,7 +15,7 @@ namespace RendererTest.Models.Loader
 
             while(!file.EndOfStream)
             {
-                string line = file.ReadLine();
+                string line = file.ReadLine().Trim();
                 if(line.StartsWith("v"))
                 {
                     handleAddVertex(line);
@@ -31,7 +31,20 @@ namespace RendererTest.Models.Loader
 
         private void handleAddFace(string line)
         {
+            // Faces are defined as follows:
+            // 'f' v1/[n1]/[t1] ...
             string[] splitLine = line.Split(' ');
+
+            for(int i = 1; i < splitLine.Length - 1; i++)
+            {
+                string subline = splitLine[i].Split('/')[0];
+                string nextSubLine = splitLine[i + 1].Split('/')[0];
+
+                int vert1 = int.Parse(subline);
+                int vert2 = int.Parse(nextSubLine);
+
+                loadedModel.AddEdge(vert1, vert2);
+            }
         }
 
         private void handleAddVertex(string line)
