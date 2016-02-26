@@ -35,8 +35,19 @@ namespace RendererTest.Models.Loader
             String pathToFile = Path.Combine(modelRoot, filename);
             logger.Info("Searching for model file in " + pathToFile);
 
+            if(!File.Exists(pathToFile))
+            {
+                logger.Error("File does not exist!");
+                return new Model();
+            }
+
+            FileStream file = File.OpenRead(pathToFile);
+
+
             Model loadedModel = new Model();
             return loadedModel;
         }
+
+        private
     }
 }
