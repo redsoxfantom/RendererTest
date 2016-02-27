@@ -26,7 +26,7 @@ namespace RendererTest
                     game.VSync = VSyncMode.On;
 
                     GL.EnableClientState(ArrayCap.VertexArray);
-                    model = loader.LoadModel("planet.obj");
+                    model = loader.LoadModel("F_18.obj");
                 };
 
                 game.Resize += (sender, e) =>

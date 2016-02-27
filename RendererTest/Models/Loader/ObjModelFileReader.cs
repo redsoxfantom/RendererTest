@@ -16,11 +16,11 @@ namespace RendererTest.Models.Loader
             while(!file.EndOfStream)
             {
                 string line = file.ReadLine().Trim();
-                if(line.StartsWith("v"))
+                if(line.StartsWith("v "))
                 {
                     handleAddVertex(line);
                 }
-                if(line.StartsWith("f"))
+                if(line.StartsWith("f "))
                 {
                     handleAddFace(line);
                 }
