@@ -16,6 +16,7 @@ namespace RendererTest
         {
             ModelLoader loader = new ModelLoader();
             Model model = null;
+            double angle = 0.0;
 
             using (var game = new GameWindow())
             {
@@ -39,16 +40,22 @@ namespace RendererTest
                     {
                         game.Exit();
                     }
+
+                    angle++;
                 };
 
                 game.RenderFrame += (sender, e) =>
                 {
                     // render graphics
                     GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+                    Matrix4 projMatrix = Matrix4.CreatePerspectiveFieldOfView(0.5f, 1.0f, 0.1f, 100.0f);
 
                     GL.MatrixMode(MatrixMode.Projection);
+                    GL.LoadMatrix(ref projMatrix);
+                    GL.MatrixMode(MatrixMode.Modelview);
                     GL.LoadIdentity();
-                    GL.Ortho(-1.0, 1.0, -1.0, 1.0, 0.0, 4.0);
+                    GL.Translate(0.0, 0.0, -10.0);
+                    GL.Rotate(angle, 1.0, 1.0, 1.0);
 
                     model.Render();
 

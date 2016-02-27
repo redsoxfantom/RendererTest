@@ -1,4 +1,5 @@
 ﻿using log4net;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace RendererTest.Elements.Models
         private List<Vertex> verticies;
         private List<Edge> edges;
         private ILog logger = LogManager.GetLogger("Model");
+        private int vbo;
 
         public Model()
         {
@@ -46,6 +48,24 @@ namespace RendererTest.Elements.Models
         public void Commit()
         {
             logger.InfoFormat("Creating model with {0} vertices and {1} edges",verticies.Count,edges.Count);
+
+            vbo = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+
+            // Load the models verticies into a form the buffer can use
+            List<Vector4> loadingVertices = new List<Vector4>();
+            foreach(Edge e in edges)
+            {
+                Vertex v1 = e.v1;
+                Vertex v2 = e.v2;
+                Vector4 vec1 = new Vector4((float)v1.x, (float)v1.y, (float)v1.z, (float)v1.w);
+                Vector4 vec2 = new Vector4((float)v2.x, (float)v2.y, (float)v2.z, (float)v2.w);
+
+                loadingVertices.Add(vec1);
+                loadingVertices.Add(vec2);
+            }
+
+            GL.BufferData<Vector4>(BufferTarget.ArrayBuffer, Vector4.SizeInBytes * loadingVertices.Count, loadingVertices.ToArray(), BufferUsageHint.StaticDraw);
         }
 
         public void Render()
