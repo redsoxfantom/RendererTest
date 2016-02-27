@@ -68,6 +68,8 @@ namespace RendererTest.Elements.Models
             GL.BufferData<Vector4>(BufferTarget.ArrayBuffer, Vector4.SizeInBytes * loadingVertices.Count, loadingVertices.ToArray(), BufferUsageHint.StaticDraw);
             GL.VertexPointer(4, VertexPointerType.Float, Vector4.SizeInBytes, 0);
 
+            logger.Info("Total model size (bytes): " + Vector4.SizeInBytes * loadingVertices.Count);
+
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
         }
 
