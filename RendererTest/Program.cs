@@ -25,6 +25,7 @@ namespace RendererTest
                     // setup settings, load textures, sounds
                     game.VSync = VSyncMode.On;
 
+                    GL.EnableClientState(ArrayCap.VertexArray);
                     model = loader.LoadModel("cube.obj");
                 };
 

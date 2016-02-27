@@ -66,19 +66,18 @@ namespace RendererTest.Elements.Models
             }
 
             GL.BufferData<Vector4>(BufferTarget.ArrayBuffer, Vector4.SizeInBytes * loadingVertices.Count, loadingVertices.ToArray(), BufferUsageHint.StaticDraw);
+            GL.VertexPointer(4, VertexPointerType.Float, Vector4.SizeInBytes, 0);
+
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
         }
 
         public void Render()
         {
-            GL.Begin(PrimitiveType.Lines);
-            
-            foreach(Edge e in edges)
-            {
-                GL.Vertex3(e.v1.x, e.v1.y, e.v1.z);
-                GL.Vertex3(e.v2.x, e.v2.y, e.v2.z);
-            }
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
-            GL.End();
+            GL.DrawArrays(PrimitiveType.Lines, 0, edges.Count * 2);
+
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
         }
     }
 }
