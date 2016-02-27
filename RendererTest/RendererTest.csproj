@@ -66,6 +66,9 @@
     <None Include="Models\cube.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Models\F_18.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Models\planet.obj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
