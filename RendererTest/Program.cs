@@ -65,6 +65,11 @@ namespace RendererTest
                     game.SwapBuffers();
                 };
 
+                game.Closing += (sender, e) =>
+                {
+
+                };
+
                 // Run the game at 60 updates per second
                 game.Run(60.0);
             }
