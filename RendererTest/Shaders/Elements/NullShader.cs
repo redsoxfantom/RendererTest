@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RendererTest.Shaders.Elements
 {
-    public class Shader : IShader
+    public class NullShader : IShader
     {
     }
 }

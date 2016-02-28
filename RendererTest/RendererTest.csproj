@@ -59,6 +59,8 @@
     <Compile Include="Models\Loader\ObjModelFileReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shaders\Elements\IShader.cs" />
+    <Compile Include="Shaders\Elements\NullShader.cs" />
     <Compile Include="Shaders\Elements\Shader.cs" />
     <Compile Include="Shaders\Loader\ShaderLoader.cs" />
   </ItemGroup>
