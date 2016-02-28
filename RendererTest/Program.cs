@@ -3,6 +3,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using RendererTest.Elements.Models;
 using RendererTest.Models.Loader;
+using RendererTest.Shaders.Elements;
 using RendererTest.Shaders.Loader;
 using System;
 using System.Drawing;
@@ -18,6 +19,7 @@ namespace RendererTest
             ModelLoader mloader = new ModelLoader();
             ShaderLoader sLoader = new ShaderLoader();
             Model model = null;
+            ShaderProgram prog = null;
             double angle = 0.0;
 
             using (var game = new GameWindow())
@@ -29,6 +31,7 @@ namespace RendererTest
 
                     GL.EnableClientState(ArrayCap.VertexArray);
                     model = mloader.LoadModel("F_18.obj");
+                    prog = sLoader.loadShaderProgram("shader.vert", "shader.frag");
                 };
 
                 game.Resize += (sender, e) =>
