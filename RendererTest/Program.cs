@@ -3,6 +3,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using RendererTest.Elements.Models;
 using RendererTest.Models.Loader;
+using RendererTest.Shaders.Loader;
 using System;
 using System.Drawing;
 
@@ -14,7 +15,8 @@ namespace RendererTest
         [STAThread]
         static void Main(string[] args)
         {
-            ModelLoader loader = new ModelLoader();
+            ModelLoader mloader = new ModelLoader();
+            ShaderLoader sLoader = new ShaderLoader();
             Model model = null;
             double angle = 0.0;
 
@@ -26,7 +28,7 @@ namespace RendererTest
                     game.VSync = VSyncMode.On;
 
                     GL.EnableClientState(ArrayCap.VertexArray);
-                    model = loader.LoadModel("F_18.obj");
+                    model = mloader.LoadModel("F_18.obj");
                 };
 
                 game.Resize += (sender, e) =>
