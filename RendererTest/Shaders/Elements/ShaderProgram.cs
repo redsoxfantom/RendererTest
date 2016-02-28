@@ -59,7 +59,7 @@ namespace RendererTest.Shaders.Elements
         {
             if(programId == 0)
             {
-                logger.WarnFormat("Shader program {0} Could not be activated",programId);
+                logger.Warn("Shader program could not be bound");
                 GL.UseProgram(0);
             }
             else

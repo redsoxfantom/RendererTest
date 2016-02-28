@@ -63,7 +63,9 @@ namespace RendererTest
                     GL.Translate(0.0, 0.0, -10.0);
                     GL.Rotate(angle, 1.0, 1.0, 1.0);
 
+                    prog.Bind();
                     model.Render();
+                    prog.UnBind();
 
                     game.SwapBuffers();
                 };
