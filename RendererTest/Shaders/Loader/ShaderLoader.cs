@@ -32,6 +32,7 @@ namespace RendererTest.Shaders.Loader
             {
                 loadShader(filename, program);
             }
+            program.Commit();
 
             return program;
         }
