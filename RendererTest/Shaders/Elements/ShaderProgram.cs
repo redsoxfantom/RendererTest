@@ -1,4 +1,5 @@
 ﻿using log4net;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -71,6 +72,30 @@ namespace RendererTest.Shaders.Elements
         public void UnBind()
         {
             GL.UseProgram(0);
+        }
+
+        public void SetVariable(string name, Matrix4 matrix)
+        {
+            if(programId > 0)
+            {
+                GL.UseProgram(programId);
+                int location = GetVariableLocation(name);
+                if(location != -1)
+                {
+                    GL.UniformMatrix4(location, false, ref matrix);
+                }
+                GL.UseProgram(0);
+            }
+        }
+
+        private int GetVariableLocation(string name)
+        {
+            int location = GL.GetUniformLocation(programId, name);
+
+            if (location != -1)
+                logger.Error("Failed to find variable " + name);
+
+            return location;
         }
     }
 }
