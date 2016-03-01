@@ -18,12 +18,14 @@ namespace RendererTest
         {
             ModelLoader mloader = new ModelLoader();
             ShaderLoader sLoader = new ShaderLoader();
-            Model model = null;
-            ShaderProgram prog = null;
-            double angle = 0.0;
 
             using (var game = new GameWindow())
             {
+                Model model = null;
+                ShaderProgram prog = null;
+                Matrix4 projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(0.5f,1.0f,0.1f,100.0f);
+                Matrix4 viewMatrix = Matrix4.LookAt(new Vector3(0.0f,0.0f,-15.0f),new Vector3(0.0f,0.0f,0.0f),new Vector3(0.0f,1.0f,0.0f));
+
                 game.Load += (sender, e) =>
                 {
                     // setup settings, load textures, sounds
@@ -47,25 +49,16 @@ namespace RendererTest
                         game.Exit();
                     }
 
-                    angle++;
+                    model.Update();
                 };
 
                 game.RenderFrame += (sender, e) =>
                 {
                     // render graphics
                     GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-                    Matrix4 projMatrix = Matrix4.CreatePerspectiveFieldOfView(0.5f, 1.0f, 0.1f, 100.0f);
-
-                    GL.MatrixMode(MatrixMode.Projection);
-                    GL.LoadMatrix(ref projMatrix);
-                    GL.MatrixMode(MatrixMode.Modelview);
-                    GL.LoadIdentity();
-                    GL.Translate(0.0, 0.0, -10.0);
-                    GL.Rotate(angle, 1.0, 1.0, 1.0);
-
-                    prog.Bind();
-                    model.Render();
-                    prog.UnBind();
+                    Matrix4 VPmatrix = projectionMatrix * viewMatrix;
+                    
+                    model.Render(VPmatrix,prog);
 
                     game.SwapBuffers();
                 };

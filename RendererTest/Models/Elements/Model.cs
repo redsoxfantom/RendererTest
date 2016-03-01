@@ -1,6 +1,7 @@
 ﻿using log4net;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using RendererTest.Shaders.Elements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace RendererTest.Elements.Models
         private List<Vector4> vertices;
         private ILog logger = LogManager.GetLogger("Model");
         private int vbo;
+        private Matrix4 modelMatrix = Matrix4.Identity;
+        float angle = 0.0f;
 
         public Model()
         {
@@ -34,7 +37,7 @@ namespace RendererTest.Elements.Models
             vbo = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
-            GL.BufferData<Vector4>(BufferTarget.ArrayBuffer, Vector4.SizeInBytes * vertices.Count, vertices.ToArray(), BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, Vector4.SizeInBytes * vertices.Count, vertices.ToArray(), BufferUsageHint.StaticDraw);
             GL.VertexPointer(4, VertexPointerType.Float, Vector4.SizeInBytes, 0);
 
             logger.Info("Total model size (bytes): " + Vector4.SizeInBytes * vertices.Count);
@@ -42,13 +45,27 @@ namespace RendererTest.Elements.Models
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
         }
 
-        public void Render()
+        public void Update()
         {
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+            angle++;
+            modelMatrix = Matrix4.CreateFromAxisAngle(new Vector3(1.0f, 1.0f, 1.0f), angle);
+        }
 
-            GL.DrawArrays(PrimitiveType.Triangles, 0, vertices.Count);
+        public void Render(Matrix4 projViewMatrix,ShaderProgram program)
+        {
+            Matrix4 MVPmatrix = projViewMatrix * modelMatrix;
+
+            program.Bind();
+            program.SetVariable("MVP", MVPmatrix);
+            GL.EnableVertexAttribArray(0);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+            GL.VertexAttribPointer(0, 4, VertexAttribPointerType.Float, false, 0, 0);
+
+            GL.DrawArrays(PrimitiveType.Triangles, 0, vertices.Count); // render the model
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            GL.DisableVertexAttribArray(0);
+            program.UnBind();
         }
     }
 }

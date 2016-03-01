@@ -58,15 +58,7 @@ namespace RendererTest.Shaders.Elements
 
         public void Bind()
         {
-            if(programId == 0)
-            {
-                logger.Warn("Shader program could not be bound");
-                GL.UseProgram(0);
-            }
-            else
-            {
-                GL.UseProgram(programId);
-            }
+            GL.UseProgram(programId);
         }
 
         public void UnBind()
@@ -92,7 +84,7 @@ namespace RendererTest.Shaders.Elements
         {
             int location = GL.GetUniformLocation(programId, name);
 
-            if (location != -1)
+            if (location == -1)
                 logger.Error("Failed to find variable " + name);
 
             return location;
