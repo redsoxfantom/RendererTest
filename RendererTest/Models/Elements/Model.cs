@@ -24,7 +24,7 @@ namespace RendererTest.Elements.Models
             vertices = new List<Vector3>();
         }
 
-        public void addFace(Vector3 v1, Vector3 v2, Vector3 v3)
+        public void addFace(Vector3 v1, Vector3 v2, Vector3 v3, Vector3 n1, Vector3 n2, Vector3 n3)
         {
             vertices.Add(v1);
             vertices.Add(v2);
