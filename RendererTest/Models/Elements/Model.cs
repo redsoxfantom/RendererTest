@@ -18,6 +18,7 @@ namespace RendererTest.Elements.Models
         private Matrix4 modelMatrix = Matrix4.Identity;
         private Quaternion quat = Quaternion.Identity;
         float angle = 0.0f;
+        int numVerts = 0;
 
         public Model()
         {
@@ -29,6 +30,11 @@ namespace RendererTest.Elements.Models
             vertices.Add(v1);
             vertices.Add(v2);
             vertices.Add(v3);
+            numVerts += 3;
+
+            //vertices.Add(n1);
+            //vertices.Add(n2);
+            //vertices.Add(n3);
         }
 
         public void Commit()
@@ -39,7 +45,6 @@ namespace RendererTest.Elements.Models
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
             GL.BufferData(BufferTarget.ArrayBuffer, Vector3.SizeInBytes * vertices.Count, vertices.ToArray(), BufferUsageHint.StaticDraw);
-            GL.VertexPointer(3, VertexPointerType.Float, Vector3.SizeInBytes, 0);
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
             logger.Info("Total model size (bytes): " + Vector3.SizeInBytes * vertices.Count);
@@ -61,10 +66,13 @@ namespace RendererTest.Elements.Models
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
             GL.EnableVertexAttribArray(0);
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 0, 0);
-            
-            GL.DrawArrays(PrimitiveType.Triangles, 0, vertices.Count); // render the model
+            GL.EnableVertexAttribArray(1);
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 0, 0);
+
+            GL.DrawArrays(PrimitiveType.Triangles, 0, numVerts); // render the model
 
             GL.DisableVertexAttribArray(0);
+            GL.DisableVertexAttribArray(1);
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             program.UnBind(); // disable the active shader program
         }

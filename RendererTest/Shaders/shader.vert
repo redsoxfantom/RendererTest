@@ -2,6 +2,7 @@
 
 // The vertices's position
 layout(location = 0) in vec3 vert_modelspace_pos;
+layout(location = 1) in vec3 norm_modelspace_vector;
 
 // The model-view-perspective matrix
 uniform mat4 MVP;
