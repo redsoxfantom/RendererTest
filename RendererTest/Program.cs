@@ -48,7 +48,7 @@ namespace RendererTest
                     {
                         game.Exit();
                     }
-
+                    game.Title = "Render Time: "+game.RenderTime*1000.0;
                     model.Update();
                 };
 
