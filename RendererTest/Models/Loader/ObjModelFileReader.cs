@@ -10,12 +10,12 @@ namespace RendererTest.Models.Loader
     public class ObjModelFileReader : IModelFileReader
     {
         Model loadedModel;
-        List<Vector4> vertices;
+        List<Vector3> vertices;
 
         public Model LoadFromFile(StreamReader file)
         {
             loadedModel = new Model();
-            vertices = new List<Vector4>();
+            vertices = new List<Vector3>();
 
             while(!file.EndOfStream)
             {
@@ -47,9 +47,9 @@ namespace RendererTest.Models.Loader
                 vertexIndices[i - 1] = vertIndex-1;
             }
 
-            Vector4 v1 = vertices[vertexIndices[0]];
-            Vector4 v2 = vertices[vertexIndices[1]];
-            Vector4 v3 = vertices[vertexIndices[2]];
+            Vector3 v1 = vertices[vertexIndices[0]];
+            Vector3 v2 = vertices[vertexIndices[1]];
+            Vector3 v3 = vertices[vertexIndices[2]];
 
             loadedModel.addFace(v1, v2, v3);
         }
@@ -63,13 +63,8 @@ namespace RendererTest.Models.Loader
             double x = double.Parse(splitLine[1]);
             double y = double.Parse(splitLine[2]);
             double z = double.Parse(splitLine[3]);
-            double w = 1.0;
-            if(splitLine.Length > 4)
-            {
-                w = double.Parse(splitLine[4]);
-            }
 
-            vertices.Add(new Vector4((float)x, (float)y, (float)z, (float)w));
+            vertices.Add(new Vector3((float)x, (float)y, (float)z));
         }
     }
 }

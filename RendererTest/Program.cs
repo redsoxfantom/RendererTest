@@ -23,8 +23,8 @@ namespace RendererTest
             {
                 Model model = null;
                 ShaderProgram prog = null;
-                Matrix4 projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(0.5f,1.0f,0.1f,100.0f);
-                Matrix4 viewMatrix = Matrix4.LookAt(new Vector3(0.0f,0.0f,-15.0f),new Vector3(0.0f,0.0f,0.0f),new Vector3(0.0f,1.0f,0.0f));
+                Matrix4 projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(0.25f,1.0f,0.1f,100.0f);
+                Matrix4 viewMatrix = Matrix4.LookAt(new Vector3(0.0f,5.0f,-15.0f),new Vector3(0.0f,0.0f,0.0f),new Vector3(0.0f,1.0f,0.0f));
 
                 game.Load += (sender, e) =>
                 {
@@ -56,7 +56,7 @@ namespace RendererTest
                 {
                     // render graphics
                     GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-                    Matrix4 VPmatrix = projectionMatrix * viewMatrix;
+                    Matrix4 VPmatrix = viewMatrix * projectionMatrix;
                     
                     model.Render(VPmatrix,prog);
 

@@ -70,13 +70,11 @@ namespace RendererTest.Shaders.Elements
         {
             if(programId > 0)
             {
-                GL.UseProgram(programId);
                 int location = GetVariableLocation(name);
                 if(location != -1)
                 {
                     GL.UniformMatrix4(location, false, ref matrix);
                 }
-                GL.UseProgram(0);
             }
         }
 

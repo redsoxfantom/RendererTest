@@ -12,18 +12,19 @@ namespace RendererTest.Elements.Models
 {
     public class Model
     {
-        private List<Vector4> vertices;
+        private List<Vector3> vertices;
         private ILog logger = LogManager.GetLogger("Model");
         private int vbo;
         private Matrix4 modelMatrix = Matrix4.Identity;
+        private Quaternion quat = Quaternion.Identity;
         float angle = 0.0f;
 
         public Model()
         {
-            vertices = new List<Vector4>();
+            vertices = new List<Vector3>();
         }
 
-        public void addFace(Vector4 v1, Vector4 v2, Vector4 v3)
+        public void addFace(Vector3 v1, Vector3 v2, Vector3 v3)
         {
             vertices.Add(v1);
             vertices.Add(v2);
@@ -35,37 +36,37 @@ namespace RendererTest.Elements.Models
             logger.InfoFormat("Creating model with {0} vertices", vertices.Count);
 
             vbo = GL.GenBuffer();
+
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
-
-            GL.BufferData(BufferTarget.ArrayBuffer, Vector4.SizeInBytes * vertices.Count, vertices.ToArray(), BufferUsageHint.StaticDraw);
-            GL.VertexPointer(4, VertexPointerType.Float, Vector4.SizeInBytes, 0);
-
-            logger.Info("Total model size (bytes): " + Vector4.SizeInBytes * vertices.Count);
-
+            GL.BufferData(BufferTarget.ArrayBuffer, Vector3.SizeInBytes * vertices.Count, vertices.ToArray(), BufferUsageHint.StaticDraw);
+            GL.VertexPointer(3, VertexPointerType.Float, Vector3.SizeInBytes, 0);
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+
+            logger.Info("Total model size (bytes): " + Vector3.SizeInBytes * vertices.Count);
         }
 
         public void Update()
         {
-            angle++;
-            modelMatrix = Matrix4.CreateFromAxisAngle(new Vector3(1.0f, 1.0f, 1.0f), angle);
+            angle+=0.01f;
+            quat = Quaternion.FromEulerAngles(angle, angle, angle);
+            modelMatrix = Matrix4.Rotate(quat);
         }
 
-        public void Render(Matrix4 projViewMatrix,ShaderProgram program)
+        public void Render(Matrix4 viewProjMatrix,ShaderProgram program)
         {
-            Matrix4 MVPmatrix = projViewMatrix * modelMatrix;
+            Matrix4 MVPmatrix =  modelMatrix * viewProjMatrix;
 
-            program.Bind();
-            program.SetVariable("MVP", MVPmatrix);
-            GL.EnableVertexAttribArray(0);
+            program.Bind(); // Set the active shader program
+            program.SetVariable("MVP", MVPmatrix); // Send the current Model-View-Projection matrix
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
-            GL.VertexAttribPointer(0, 4, VertexAttribPointerType.Float, false, 0, 0);
-
+            GL.EnableVertexAttribArray(0);
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 0, 0);
+            
             GL.DrawArrays(PrimitiveType.Triangles, 0, vertices.Count); // render the model
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.DisableVertexAttribArray(0);
-            program.UnBind();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            program.UnBind(); // disable the active shader program
         }
     }
 }
