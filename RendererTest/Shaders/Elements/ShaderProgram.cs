@@ -87,5 +87,10 @@ namespace RendererTest.Shaders.Elements
 
             return location;
         }
+
+        public void Dispose()
+        {
+            GL.DeleteProgram(programId);
+        }
     }
 }

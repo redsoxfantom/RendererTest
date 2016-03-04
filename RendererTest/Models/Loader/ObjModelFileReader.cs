@@ -42,7 +42,7 @@ namespace RendererTest.Models.Loader
         private void handleAddFace(string line)
         {
             // Faces are defined as follows:
-            // 'f' v1/[n1]/[t1] ...
+            // 'f' v1/[t1]/[n1] ...
             string[] splitLine = line.Split(' ');
             int[] vertexIndices = new int[3];
             int[] normalIndices = new int[3];
@@ -53,7 +53,7 @@ namespace RendererTest.Models.Loader
                 int vertIndex = int.Parse(subSplitLine[0]);
                 vertexIndices[i - 1] = vertIndex-1;
 
-                int normIndex = int.Parse(subSplitLine[1]);
+                int normIndex = int.Parse(subSplitLine[2]);
                 normalIndices[i - 1] = normIndex - 1;
             }
 

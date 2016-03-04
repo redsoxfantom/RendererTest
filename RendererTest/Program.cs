@@ -32,7 +32,7 @@ namespace RendererTest
                     game.VSync = VSyncMode.On;
 
                     GL.EnableClientState(ArrayCap.VertexArray);
-                    model = mloader.LoadModel("F_18.obj");
+                    model = mloader.LoadModel("plane.obj");
                     prog = sLoader.loadShaderProgram("shader.vert", "shader.frag");
                 };
 
@@ -65,7 +65,8 @@ namespace RendererTest
 
                 game.Closing += (sender, e) =>
                 {
-
+                    model.Dispose();
+                    prog.Dispose();
                 };
 
                 // Run the game at 60 updates per second

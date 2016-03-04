@@ -76,5 +76,10 @@ namespace RendererTest.Elements.Models
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             program.UnBind(); // disable the active shader program
         }
+
+        public void Dispose()
+        {
+            GL.DeleteBuffer(vbo);
+        }
     }
 }
