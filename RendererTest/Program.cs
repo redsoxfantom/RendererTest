@@ -25,11 +25,14 @@ namespace RendererTest
                 ShaderProgram prog = null;
                 Matrix4 projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(0.25f,1.0f,0.1f,100.0f);
                 Matrix4 viewMatrix = Matrix4.LookAt(new Vector3(0.0f,5.0f,-15.0f),new Vector3(0.0f,0.0f,0.0f),new Vector3(0.0f,1.0f,0.0f));
+                int vao = 0;
 
                 game.Load += (sender, e) =>
                 {
                     // setup settings, load textures, sounds
                     game.VSync = VSyncMode.On;
+                    vao = GL.GenVertexArray();
+                    GL.BindVertexArray(vao);
 
                     GL.EnableClientState(ArrayCap.VertexArray);
                     model = mloader.LoadModel("plane.obj");
@@ -67,6 +70,7 @@ namespace RendererTest
                 {
                     model.Dispose();
                     prog.Dispose();
+                    GL.DeleteVertexArray(vao);
                 };
 
                 // Run the game at 60 updates per second
